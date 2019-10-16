@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1{
+            width:200px;
+            height:200px;
+            
+            background: #ccc;
+            margin: 100px;
+            
+        }
+        #div2{
+            width:100px;
+            height:100px;
+            background: red;
+            position:absolute;
+            left:50px;
+            top:150px;
+        }
+    </style>
+    <script>
+        function getByClass(oParent,sClass)
+        {
+            var aResult=[];
+            var aEle=oParent.getElementsByTagName('*');  //*可以代表一切标签
+            for(var i=0;i<aEle.length;i++)
+            {
+                if(aEle[i].className==sClass)
+                {
+                    aResult.push(aEle[i]);
+                }
+            }
+            return aResult;
+        }
+
+
+        window.onload=function()
+        {
+            var oUl=document.getElementById('ul1');
+            console.log(oUl.childNodes.length);             //  7
+            console.log(oUl.children.length);               //  3，不包含 孙节点
+            for(var i=0;i<oUl.childNodes.length;i++)
+            {
+                //oUl.childNodes[i].style.background="red";    //包含文本节点和元素节点，文本节点的background无定义
+                console.log(oUl.childNodes[i].nodeType);    //3131313，nodeType强调节点类型及个数
+                if(oUl.childNodes[i].nodeType==1)
+                {
+                    oUl.childNodes[i].style.background="red";   
+                }
+            }
+
+
+
+            var aA=document.getElementsByTagName('a');
+            console.log(aA);
+            console.log(oUl.parentNode);                  //父节点
+            for(i=0;i<aA.length;i++)
+            {
+                aA[i].onclick=function() 
+                {
+                    this.parentNode.style.display='none';
+
+                }
+            }
+
+
+
+
+            var oDiv1=document.getElementById('div1');
+            var oDiv2=document.getElementById('div2');
+            console.log(oDiv2.offsetParent);                 // 参考定位的父节点
+
+
+
+            //兼容性问题
+            var oUl2=document.getElementById('ul2');
+            if(oUl2.firstElementChild)
+            {
+                oUl2.firstElementChild.style.background="red";
+            }
+            else
+            {
+                oUl2.firstChild.style.background="red";
+            }
+
+
+
+            //操作元素属性
+            var oTxt=document.getElementById("txt1");
+            var oBtn=document.getElementById('btn1');
+            oBtn.onclick=function()
+            {
+                //oTxt.value="higiguii";
+                //oTxt['value']="kjiojuihui";
+                oTxt.setAttribute('value','drtdh');
+            }
+
+
+
+            //DOM元素灵活查找
+            /*
+            var oUl3=document.getElementById('ul3');
+            var aLi=oUl3.getElementsByTagName('li');
+            for(var i=0;i<aLi.length;i++)
+            {
+                if(aLi[i].className=="box")
+                {
+                    aLi[i].style.background="red";
+                }
+            }      */
+            //可改写为：
+            var oUl3=document.getElementById('ul3');
+            var aBox=getByClass(oUl3,'box');
+            for(var i=0;i<aBox.length;i++)
+            {
+                aBox[i].style.background="red";
+            }
+            //封装成函数，利用函数
+        }
+    
+    </script>
+</head>
+<body>
+    <ul id='ul1'>
+        <li>
+            iihoihiohuh<a href="javascript:;">隐藏</a>
+        </li>
+        <li>
+            iuuhhioh<a href="javascript:;">隐藏</a>
+        </li>
+        <li>
+            wawarrtfty<a href="javascript:;">隐藏</a>
+        </li>
+    </ul>
+    <div id='div1'>
+            <div id='div2'></div>
+    </div>
+
+    <ul id='ul2'>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+
+    <input id="txt1" type="text">
+    <input id="btn1" type="button" value="按钮">
+
+
+
+    
+
+
+    <ul id='ul3'>
+        <li class='box'></li>
+        <li class='box'></li>
+        <li></li>
+        <li></li>
+        <li class='box'></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function show(){
+            alert('a');
+        }
+        //setInterval(show,1000);  
+        //每隔1000毫秒即一秒执行一次show函数，无限执行
+        //setTimeout(show,1000);
+        //只执行一次
+
+        window.onload=function()
+        {
+            /*var oBtn1=document.getElementById('btn1');
+            var oBtn2=document.getElementById('btn2');
+            var timer=null;
+
+            oBtn1.onclick=function()
+            {
+               timer= setInterval(show,3000);//返回定时器的值，即timer
+            }
+            oBtn2.onclick=function()
+            {
+                clearInterval(timer);
+            }         */
+
+            function toDou(n)             //将数字转换成字符串格式
+            {
+                if(n>10)
+                {
+                    return ""+n;       
+                }
+                else
+                {
+                    return "0"+n;
+                }
+            }
+            
+            function tick()
+            {
+                var aImg=document.getElementsByTagName('img');
+                console.log(aImg);
+                var oDate=new Date();
+                var str=toDou(oDate.getHours())+toDou(oDate.getMinutes())+toDou(oDate.getSeconds());
+                console.log(str);
+                for(var i=0;i<aImg.length;i++)
+                {
+                    aImg[i].src='digits/'+str[i]+'-Number-PNG.png';     //字符串连接
+                    //考虑到兼容问题，用str.charAt(i)更好
+                }  
+            }    
+            setInterval(tick,1000);                   //让时间自动更新
+            tick();                         //处下，可以在setInterval执行之前就显示结果，刷新网页也不会出现图片延迟
+        }
+    </script>
+    <style>
+        img{width:20px;height:50px;}
+        body{background: black;color:white}
+    </style>
+</head>
+<body>
+    <input id="btn1" type="button" value="开启">
+    <input id="btn2" type="button" value="关闭">
+    <br><br>
+    
+    <img src="" alt="数字0">
+    <img src="" alt="数字1">
+    :
+    <img src="" alt="数字2">
+    <img src="" alt="数字3">
+    :
+    <img src="" alt="数字4">
+    <img src="" alt="数字5">
+    
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload=function(){
+            //创建和插入元素
+            var oBtn=document.getElementById('btn');
+            var oUl=document.getElementById('ul');
+            var oTxt=document.getElementById('txt');
+
+            oBtn.onclick=function()
+            {
+                var oLi=document.createElement('li');
+                var aLi=document.getElementsByTagName('li');
+                oLi.innerHTML=oTxt.value;
+                //父级.appendChild(子节点)
+                //oUl.appendChild(oLi);      //添加到末尾
+                oUl.insertBefore(oLi,aLi[0]);      //添加到最前
+                console.log(oUl);
+            }
+            
+
+            //s\删除元素
+            var oUl2=document.getElementById('ul2');
+            var aA=oUl2.getElementsByTagName('a');
+            console.log(aA);
+            for(var i=0;i<aA.length;i++)
+            {
+                aA[i].onclick=function()
+                {
+                    oUl2.removeChild(this.parentNode);
+                }
+            }
+
+
+            //文档碎片
+            /*
+            var oUl3=document.getElementById('ul3');
+
+            for(var i=0;i<10000;i++)                          //插入10000行，页面会稍微卡顿
+            {
+                var oLi=document.createElement('li');
+                oUl3.appendChild(oLi);       
+            }             */
+            
+            var oUl3=document.getElementById('ul3');
+            var oFrag=document.createDocumentFragment();
+            for(var i=0;i<10000;i++)                  //先装进Frag里再把Frag装进列表中，在低版本浏览器中会改善性能，在高版本浏览器中反而可能是累赘        
+            {
+                var oLi=document.createElement('li');
+                oFrag.appendChild(oLi);       
+            }
+            oUl3.appendChild(oFrag);
+        }
+        
+    </script>
+</head>
+<body>
+
+    <input id='btn' type="button" value="创建">
+    <input type="txt" id='txt'>
+    <ul id='ul'></ul>
+
+
+    <ul id='ul2'>
+        <li>uiuhiuhhoi<a href="javascript:;">删除</a></li>
+        <li>drsytdfygiu<a href="javascript:;">删除</a></li>
+        <li>esesdtrdtfyu<a href="javascript:;">删除</a></li>
+        <li>njhugftd<a href="javascript:;">删除</a></li>
+        <li>wwwssreesrr<a href="javascript:;">删除</a></li>
+
+    </ul>
+
+    <ul id='ul3'></ul>
+</body>
+</html>

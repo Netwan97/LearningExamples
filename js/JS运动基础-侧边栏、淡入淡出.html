@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1{
+            width: 150px;
+            height: 200px;
+            background: blue;
+            position: absolute;
+            left: -150px;
+        }
+        #div1 span{
+            width: 20px;
+            height: 60px;
+            line-height: 20px;
+            right: -20px;
+            top: 70px;
+            position: absolute;
+            background: plum;
+        }
+        
+        #div2{
+            width: 200px;
+            height: 200px;
+            background: red;
+            left:200px;
+            top: 200px;
+            filter: alpha(opacity=30);opacity:0.3;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload=function()
+        {
+            //侧边栏
+            var oDiv=document.getElementById('div1');
+            console.log(oDiv.offsetLeft);
+            
+            oDiv.onmouseover=function()
+            {
+                startMove(0);
+            }
+            oDiv.onmouseout=function()
+            {
+                startMove(-150);
+            }
+
+            //淡入淡出
+            var oDiv2=document.getElementById('div2');
+            oDiv2.onmouseover=function()
+            {
+                startMovee(100);
+            }
+            oDiv2.onmouseout=function()
+            {
+                startMovee(30);
+            }
+        }
+
+
+        var timer=null;
+        function startMove(iTarget)
+        {
+            var oDiv=document.getElementById('div1');
+            var speed=0;
+            clearInterval(timer);
+            if(oDiv.offsetLeft<iTarget)
+            {
+                speed=10;
+            }
+            else
+            {
+                speed=-10;
+            }
+            timer=setInterval(function()
+            {
+                if(oDiv.offsetLeft==iTarget)
+                {
+                    clearInterval(timer);
+                }
+                else
+                {
+                    oDiv.style.left=oDiv.offsetLeft+speed+'px';
+                }
+            },30)
+        }
+
+
+        var alpha=30;              //用变量储存透明度
+        var timer=null;
+        function startMovee(iTarget)
+        {
+            var oDiv2=document.getElementById('div2');
+            var speed=0;
+            clearInterval(timer);
+            if(alpha<iTarget)
+            {
+                speed=10;
+            }
+            else
+            {
+                speed=-10;
+            }
+            timer=setInterval(function()
+            {
+                if(alpha==iTarget)
+                {
+                    clearInterval(timer);
+                }
+                else
+                {
+                    alpha+=speed;
+                    oDiv2.style.filter='alpha(opacity='+alpha+')';
+                    oDiv2.style.opacity=alpha/100;
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+    <div id='div1'>
+        <span>分享到</span>
+    </div>
+    <br>
+    <div id='div2'></div>
+</body>
+</html>

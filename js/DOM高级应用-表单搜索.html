@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload=function()
+        {
+            //表单的搜索，以姓名为例：
+            var oTab=document.getElementById('tab1');
+            var oBtn=document.getElementById('btn');
+            var oName=document.getElementById('name');
+
+            oBtn.onclick=function()
+            {
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    if(oTab.tBodies[0].rows[i].cells[1].innerHTML==oName.value)
+                    {
+                        oTab.tBodies[0].rows[i].style.background="yellow";
+                        console.log('字符串搜索');
+                    }
+                    else
+                    {
+                        oTab.tBodies[0].rows[i].style.background="";     //若不想设为白色，可以参考前例用oldColor
+                    }
+                    
+                    
+
+                }
+
+
+                //忽略大小写：
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML;         //从表格中获取的值
+                    sName=oName.value;                                       //从文本框中获取的值
+                    if(sTab.toLowerCase()==sName.toLowerCase())              //toLowerCase转成全小写
+                    {
+                        oTab.tBodies[0].rows[i].style.background="yellow";
+                        console.log('忽略大小写搜索');
+                    }
+                    else
+                    {
+                        oTab.tBodies[0].rows[i].style.background="";  
+                    }
+                    
+                }
+
+                
+                //模糊搜索
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();         
+                    sName=oName.value.toLowerCase();                                      
+                    if(sTab.search(sName)!=-1)         //sTab.search('a'),搜索sTab中的字符a并返还其位置，找不到则返回-1
+                    {
+                        oTab.tBodies[0].rows[i].style.background="yellow";
+                        console.log('模糊搜索');
+                    }
+                    else
+                    {
+                        oTab.tBodies[0].rows[i].style.background="";  
+                    }
+                    
+                }
+
+
+                //多关键词搜索
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                {
+                    sTab=oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();         
+                    sName=oName.value.toLowerCase();
+                    var arr=sName.split(/ |,|，/);        //假设用户用空格隔开关键词，也可能用逗号
+                    console.log(arr);
+                    oTab.tBodies[0].rows[i].style.background="";  //筛选：将background=""修改成display="none"即可
+                    for(var j=0;j<arr.length;j++)
+                    {
+                        if(arr[j]=='')
+                        {
+                            continue;
+                        }
+                        if(sTab.search(arr[j])!=-1)    
+                        {
+                            oTab.tBodies[0].rows[i].style.background="yellow";
+                            //筛选：将background="yellow"修改成display="block"即可
+                            console.log('多关键词搜索');
+                        }
+                    }
+                }  
+            }
+
+            //排序
+            var oUl1=document.getElementById('ul1');
+            var oUl2=document.getElementById('ul2');
+            var oBtn1=document.getElementById('btn1');
+            var oBtn2=document.getElementById('btn2');
+
+            oBtn1.onclick=function()
+            {
+                var oLi=oUl1.children[0];
+                //oUl1.removeChild(oLi);              //可以去掉，效果一样
+                oUl1.appendChild(oLi);               //1.先把元素从原有的父级删掉      2.添加到新的父级
+            }
+
+            oBtn2.onclick=function()
+            {
+                var aLi=oUl1.getElementsByTagName('li');
+                //aLi.sort();    不能用
+                var arr=[];
+                for(var i=0;i<aLi.length;i++)
+                {
+                    arr[i]=aLi[i];
+                }
+                arr.sort(function(li1,li2)
+                {
+                    var n1=parseInt(li1.innerHTML);
+                    var n2=parseInt(li2.innerHTML);
+                    return n1-n2;
+                })
+                for(var i=0;i<arr.length;i++)
+                {
+                    oUl1.appendChild(arr[i]);
+                }
+            }
+
+            var oBtn3=document.getElementById('btn3');
+            oBtn3.onclick=function()
+            {
+                var arr=[];
+                for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+                arr[i]=oTab.tBodies[0].rows[i];
+                arr.sort(function(tr1,tr2)
+                {
+                    var n1=parseInt(tr1.cells[2].innerHTML);
+                    var n2=parseInt(tr2.cells[2].innerHTML);
+                    return n1-n2;
+                })
+                for(var i=0;i<arr.length;i++)
+                {
+                    oTab.tBodies[0].appendChild(arr[i]);
+                }
+            }
+
+
+
+
+
+
+        }
+        
+    </script>
+</head>
+<body>
+    姓名：<input id='name' type="text"> 
+    <input id="btn" type="button" value="搜索">
+    <input id='btn3' type="button" value="排序">
+    <table id='tab1' border='1' width='500'>
+        <thead>
+            <td>ID</td>
+            <TD>姓名</TD>
+            <td>年龄</td>
+            <td>操作</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>51</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>blur</td>
+                <td>45</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Blue</td>
+                <td>56</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>赵六</td>
+                <td>12</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>周七</td>
+                <td>32</td>
+                <td></td>
+            </tr>        
+        </tbody>
+    </table>
+    <input id='btn1' type="button" value="移动">
+    <ul id='ul1'>
+        <li>91</li>
+        <li>52</li>
+        <li>33</li>
+        <li>44</li>
+    </ul>
+    <input id='btn2' type="button" value="排序">
+    <ul id='ul2'>
+
+    </ul>
+</body>
+</html>

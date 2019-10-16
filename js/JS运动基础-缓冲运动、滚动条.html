@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            left: 600px;
+            top: 50px;
+            background: red;
+
+        }
+        #div2{
+            width: 1px;
+            height: 300px;
+            left: 300px;
+            top: 0px;
+            background: black;
+            position: absolute;
+        }
+        #div4{
+            width: 1px;
+            height: 300px;
+            left: 100px;
+            top: 0px;
+            background: black;
+            position: absolute;
+        }
+
+        #div3{
+            width: 100px;
+            height: 150px;
+            position: absolute;
+            background: blue;
+            right: 0px;
+            bottom: 0;
+        }
+    </style>
+    <script>
+        var timer1=null;          //对不同的对象，要用不同的标记
+        function startMove(iTarget)
+        {
+            var oDiv1=document.getElementById('div1');
+            clearInterval(timer1);
+            console.log(iTarget);
+            console.log(oDiv1.style.left);
+            timer1=setInterval(function()
+            {
+                var speed=0;   
+                if(oDiv1.offsetLeft<iTarget)
+                {
+                    speed=7;
+                }
+                else if(oDiv1.offsetLeft>iTarget)
+                {
+                    speed=-7;
+                }
+
+                if(Math.abs(iTarget-oDiv1.offsetLeft)<Math.abs(speed))
+                {
+                    clearInterval(timer1);
+                    oDiv1.style.left=iTarget+'px';
+                }
+                else
+                {
+                    oDiv1.style.left=oDiv1.offsetLeft+speed+'px';
+                }
+                
+            },30)
+            console.log(oDiv1.offsetLeft);
+        }
+
+
+        window.onscroll=function()                           //为窗口添加滚动条事件
+        {
+            var oDiv3=document.getElementById('div3');
+            var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+            
+            console.log(scrollTop);
+
+
+            //oDiv3.style.top=(document.documentElement.clientHeight-oDiv3.offsetHeight)/2+scrollTop+'px';
+            //console.log(oDiv3.style.top);
+            startMovee(parseInt((document.documentElement.clientHeight-oDiv3.offsetHeight)/2+scrollTop));
+        }
+        var timer2=null;
+        function startMovee(iTarget)
+        {
+            console.log(iTarget);
+            clearInterval(timer2);
+            var oDiv3=document.getElementById('div3');
+            timer2=setInterval(function()
+            {
+                var speed=(iTarget-oDiv3.offsetTop)/6;                   //控制缓冲速度的快慢
+                console.log(iTarget);
+                console.log(oDiv3.style.top);
+                speed= speed>0?Math.ceil(speed):Math.floor(speed);         //向上取整和向下取整
+                console.log(speed);
+                if(oDiv3.offsetTop==iTarget)
+                {
+                    clearInterval(timer2);
+                }
+                else
+                {
+                    oDiv3.style.top=oDiv3.offsetTop+speed+'px';
+                }
+                
+
+            },30)
+
+        }
+
+    </script>
+</head>
+<body style="height: 2000px;">
+    
+    <input id="btn1" type="button" value="到100" onclick='startMove(100)'>
+    <input id="btn2" type="button" value="到300" onclick='startMove(300)'>
+    <div id='div1'></div>
+    <div id='div2'></div>
+    <div id='div4'></div>
+    <div id='div3'></div>
+</body>
+</html>

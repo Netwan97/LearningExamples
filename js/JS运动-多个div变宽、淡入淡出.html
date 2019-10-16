@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div1 {
+            width: 100px;
+            height: 50px;
+            background: red;
+            margin: 10px;
+
+        }
+        .div2{
+            width: 200px;
+            height: 200px;
+            float: left;
+            margin: 20px;
+            background: red;
+            filter: alpha(opacity=30);opacity:0.3;
+        }
+    </style>
+    <script>
+        window.onload=function()
+        {
+            //多个div变宽
+            var aDiv1=document.getElementsByClassName('div1');
+            
+            for(var i=0;i<aDiv1.length;i++)
+            {
+                aDiv1[i].timer=null;        //自定义属性
+                aDiv1[i].onmouseover=function()
+                {
+                    console.log(i);
+                    startMove(this,300);
+                    
+                }
+                aDiv1[i].onmouseout=function()
+                {
+                    startMove(this,100);
+                }
+            }
+
+
+            //多个div淡入淡出
+            var aDiv2=document.getElementsByClassName('div2');
+
+            for(i=0;i<aDiv2.length;i++)
+            {
+                aDiv2[i].timer=null;
+                aDiv2[i].alpha=30;                  //不能公用
+                aDiv2[i].onmouseover=function()
+                {
+                    startMovee(this,100);
+                }
+                aDiv2[i].onmouseout=function()
+                {
+                    startMovee(this,30);
+                }
+            }
+
+        }
+
+
+
+        //var timer=null;      
+        function startMove(obj,iTarget)
+        {
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function()
+            {
+                var speed=(iTarget-obj.offsetWidth)/6;
+                speed= speed>0? Math.ceil(speed): Math.floor(speed);
+
+                if(iTarget==obj.offsetWidth)
+                {
+                    clearInterval(obj.timer);
+                }
+                else
+                {
+                    obj.style.width=obj.offsetWidth+speed+'px';
+                }
+
+
+            },30)
+        }
+
+
+        //var alpha=30;
+        function startMovee(obj,iTarget)
+        {
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                var speed=(iTarget-obj.alpha)/6;
+                speed=speed>0?Math.ceil(speed):Math.floor(speed);
+                if(iTarget==obj.alpha)
+                {
+                    clearInterval(obj.timer);
+
+                }
+                else
+                {
+                    obj.alpha+=speed;
+                    obj.style.filter='alpha(opacity:'+obj.alpha+')';
+                    obj.style.opacity=obj.alpha/100;
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+    <div class='div1'>1</div>
+    <div class='div1'>2</div>
+    <div class='div1'>3</div>
+    <div class='div2'></div>
+    <div class='div2'></div>
+    <div class='div2'></div>
+    <div class='div2'></div>
+</body>
+</html>

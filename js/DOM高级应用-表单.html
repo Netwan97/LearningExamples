@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload=function()
+        {
+            var oTab=document.getElementById('tab1');
+            console.log(oTab);
+            console.log(oTab.getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].innerHTML);
+            //可以改写为：
+            console.log(oTab.tBodies[0].rows[1].cells[0].innerHTML);
+
+            //隔行变色、鼠标移入行高亮：
+            var oldColor="";
+            
+            for(var i=0;i<oTab.tBodies[0].rows.length;i++)
+            {
+                oTab.tBodies[0].rows[i].onmouseover=function()
+                {
+                    oldColor=this.style.background;                       //利用中间变量
+                    this.style.background="green";
+                }
+                oTab.tBodies[0].rows[i].onmouseout=function()
+                {
+                    this.style.background=oldColor;
+                }
+                
+                if(i%2==0)
+                {
+                    oTab.tBodies[0].rows[i].style.background="#CCC";
+                }
+                else
+                {
+                    oTab.tBodies[0].rows[i].style.background="";
+                }
+            }
+            
+
+            //添加和删除一行
+            var oBtn1=document.getElementById('btn1');
+            var oName=document.getElementById('name');
+            var oAge=document.getElementById('age');
+            var Id=oTab.tBodies[0].rows.length+1;
+
+            oBtn1.onclick=function()
+            {
+                var oTr=document.createElement('tr');
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=Id++;         //实际中”Id“不需要自己取，但是Id一般不会重复，因此Id不应为此函数局部变量
+                oTr.appendChild(oTd);
+                console.log(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oName.value;
+                oTr.appendChild(oTd);
+                console.log(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML=oAge.value;
+                oTr.appendChild(oTd);
+                console.log(oTd);
+
+                var oTd=document.createElement('td');
+                oTd.innerHTML='<a href="javascript:;">删除</a>';
+                oTr.appendChild(oTd);
+                console.log(oTd);
+
+                oTd.getElementsByTagName('a')[0].onclick=function()
+                {
+                    oTab.tBodies[0].removeChild(this.parentNode.parentNode);          //注意tBodies[0]!!!
+                }
+                oTab.tBodies[0].appendChild(oTr);                             //此行及上行，插入的节点关系要清楚
+            }
+          
+        }
+    
+    </script>
+</head>
+<body>
+    姓名：<input id='name' type="text"> 
+    年龄：<input id='age' type="text">
+    <input id="btn1" type="button" value="添加">
+    <table id='tab1' border='1' width='500'>
+        <thead>
+            <td>ID</td>
+            <TD>姓名</TD>
+            <td>年龄</td>
+            <td>操作</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>张三</td>
+                <td>51</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>李四</td>
+                <td>45</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>王五</td>
+                <td>56</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>赵六</td>
+                <td>12</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>周七</td>
+                <td>32</td>
+                <td></td>
+            </tr>
+                
+        </tbody>
+    </table>
+    
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            width: 200px;
+            height: 150px;
+            background: yellow;
+            float: left;
+            margin: 20px;
+            border: 10px solid black;
+            font-size: 14px;
+        }
+        #div4{
+            filter:alpha(opacity=30);opacity:0.3;
+        }
+    </style>
+    <script>
+        window.onload=function()
+        {
+            var aDiv=document.getElementsByTagName("div");
+
+            //变高
+            aDiv[0].onmouseover=function()
+            {
+                startMove(this,'height', 300);
+            }
+            aDiv[0].onmouseout=function()
+            {
+                startMove(this,"height", 150);
+            }
+
+            //变宽
+            aDiv[1].onmouseover=function()
+            {
+                startMove(this,'width', 400);
+            }
+            aDiv[1].onmouseout=function()
+            {
+                startMove(this,'width', 200);
+            }
+
+            //字体变大
+            aDiv[2].onmouseover=function()
+            {
+                startMove(this,'font-size', 64);
+            }
+            aDiv[2].onmouseout=function()
+            {
+                startMove(this,'font-size', 14);
+            }
+
+            //边框变宽
+            aDiv[3].onmouseover=function()
+            {
+                startMove(this,'borderWidth', 50);
+            }
+            aDiv[3].onmouseout=function()
+            {
+                startMove(this,'borderWidth', 10);
+            }
+
+            //透明度变化
+            aDiv[4].onmouseover=function()
+            {
+                startMove(this,'opacity', 100);
+            }
+            aDiv[4].onmouseout=function()
+            {
+                startMove(this,'opacity', 30);
+            }
+            
+
+        }
+
+
+        function getStyle(obj,name)
+        {
+            if(obj.currentStyle)
+            {
+                return obj.currentStyle[name];
+            }
+            else
+            {
+                return getComputedStyle(obj,false)[name];
+            }
+        }
+
+        function startMove(obj,attr,iTarget)
+        {
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function()
+            {
+                var cur=0;
+                if(attr=='opacity')
+                {
+                    cur=Math.round(parseFloat(getStyle(obj,attr))*100);         //透明度值有小数
+                }
+                else
+                {
+                    cur=parseInt(getStyle(obj,attr));
+                }
+                var speed=(iTarget-cur)/6;
+                speed=speed>0?Math.ceil(speed):Math.floor(speed);
+                if(iTarget==cur)
+                {
+                    clearInterval(obj.timer);
+                }
+                else
+                {
+                    if(attr=='opacity')
+                    {
+                        obj.style.filter='alpha(opacity:'+(cur+speed)+')';
+                        obj.style.opacity=(cur+speed)/100;
+                        console.log(cur);
+                        //Math.round,四舍五入
+                    }
+                    else
+                    {
+                        obj.style[attr]=cur+speed+'px';
+                    }
+                }
+
+            },30)
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <div>变高</div>
+    <div>变宽</div>
+    <div>yfuguiiohjopj</div>
+    <div></div>
+    <div id='div4'></div>
+</body>
+</html>

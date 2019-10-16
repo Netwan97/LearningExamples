@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //CSS(oDiv1,'width')      获取样式
+        //CSS(oDiv1,'width','200px')      设置样式
+        function CSS()      //可以写CSS(obj,name,value)，简化后面运算
+        {
+            
+            if(arguments.length==2)
+            {
+                return arguments[0].style[arguments[1]];       //return obj.style[name];
+            }
+            else
+            {
+                arguments[0].style[arguments[1]] =arguments[2];        //obj.style[name]=value;
+            }
+        }
+        function getStyle(obj,name)
+            {
+                if(obj.currentStyle)
+                {
+                    return obj.currentStyle[name];
+                }
+                else
+                {
+                    return getComputedStyle(obj,false)[name];
+                }
+            }
+        window.onload=function()
+        {
+            
+            var oDiv=document.getElementById('div1');
+            alert(CSS(oDiv,'height'));
+            alert(getStyle(oDiv,'background-color'));     
+            //可以用console.log代替alert，一次可以打印多个值，在开发者工具console标签下看
+            //相当于 alert(oDiv.style.height)
+
+            //若为非行间样式，为样式表或外部链接样式，则改写为：
+            //IE:              alert(oDiv.currentStyle.height);
+            //Chrom、FF：       alert(getComputedStyle(oDiv,垃圾参数).height);
+            /*上述两行可改写为：
+            if(oDiv.currentStyle==0)
+            {
+                alert(getComputedStyle(oDiv,垃圾参数).height);
+            }
+            else
+            {
+                alert(oDiv.currentStyle.height);
+            }    */
+            /* 可以直接建立一个函数：
+            function getStyle(obj,name)
+            {
+                if(obj.currentStyle)
+                {
+                    return obj.currentStyle[name];
+                }
+                else
+                {
+                    return getComputedStyle(obj,false)[name];
+                }
+            }
+            在window.onload函数里改为：
+            alert(getStyle(obj,'width'));     */
+
+            CSS(oDiv,'background','green');
+        }
+    </script>
+</head>
+<body>
+    <div id='div1' style="width:200px;height:150px;background: red;">   <!--行间样式-->
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //数组的添加、删除
+        var arr=[1,2,3,4,5,6];
+        //删除：splice(起点，长度)
+        //arr.splice(2,3);                                arr=[1,2,6]
+        //添加：splice(起点，长度，元素)
+        //arr.splice(2,0,'a','b','c');                    arr=[1,2,a,b,c,3,4,5,6]
+        //替换：splice(起点，长度，元素)
+        //arr.splice(2,2,'a','b');                        arr=[1,2,a,b,5,6]
+        alert(arr);
+        //数组的连接
+        var a=[1,2,3];
+        var b=[7,8,9];
+        alert(a.concat(b));                               //concat（）里的数组在后：[1,2,3,7,8,9]
+        alert(a.join('-'));                               //分隔符：[1-2-3]
+        //数组的排序
+        var arr=['float','width','height'];
+        arr.sort();                                      //以字符串形式比较
+        alert(arr);                                      //arr=['float','height','width']
+
+        var arr=[112,8,12,78];
+        arr.sort();                                      //以字符串形式比较
+        alert(arr);                                      //arr=[112,12,78,8]
+        arr.sort(function(n1,n2){
+            return n1-n2;
+           /* if(n1>n2)
+            {
+                return 1;
+            }
+            else if(n1<n2)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }   */       
+        }
+        )
+        alert(arr);  
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
