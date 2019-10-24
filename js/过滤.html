@@ -1,0 +1,20 @@
+<div>
+    过滤前内容：<br>
+    <textarea id="pre" cols="40" rows="10"></textarea>
+    <input type="button" id="btn" value="过滤">
+</div>
+<div style = "float: left;">
+    过滤后的内容：<br>
+    <textarea id="res" cols="40" rows="10"></textarea>
+</div>
+<script>
+    document.getElementById('btn').onclick = function () {
+        var reg = /(bad)|[\u4e00-\u9fa5]/gi;
+        var str = document.getElementById('pre').value;
+        var newstr = str.replace(reg,'*');
+        document.getElementById('res').value = newstr;
+    };
+</script>
+<div>
+
+</div>
