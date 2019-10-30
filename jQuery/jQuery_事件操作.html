@@ -1,0 +1,106 @@
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js">
+</script>
+<style>
+.boxes {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+}
+</style>
+<body>
+    <p>用户名称：
+        <input type="text" name="uname">
+    </p>
+    <p>电子邮箱：
+        <input type="text" name="email">
+    </p>
+    <p>手机号码：
+        <input type="text" name="tel">
+    </p>
+
+
+    <div class="boxes"></div>
+
+
+    <div class="hit">
+        jquery 介绍
+    </div>
+
+
+    <div class="events">
+        事件绑定与切换
+    </div>
+    <div class="ev">事件切换与绑定</div>
+</body>
+<script>
+    $('input[type=text]').focus(function() {     // 文本框获取焦点
+        var tips = $('<span></span>');
+        tips.html('请按要求输入');
+        $('input:focus').after(tips);
+    });
+    $('input[type=text]').blur(function() {      // 文本框失去焦点
+        $(this).next().remove();
+        console.log($(this));
+    });
+
+
+    $(document).keydown(function(event) {
+        var opt = event.which;        // 获取 当前按下键盘对应的码值KeyCode
+        var item = $('.boxes');        // 获取操作的元素
+        var left = item.offset().left;       // 获取元素距离文档左侧的距离，单位像素
+        var top = item.offset().top;         // 获取元素距离文档上侧的距离，单位像素
+        switch(opt) {
+            case 37: item.offset({left: left - 1, top: top}); break;       //左
+            case 38: item.offset({left: left, top: top - 1}); break;       //上
+            case 39: item.offset({left: left + 1, top: top}); break;       //右
+            case 40: item.offset({left: left, top: top + 1}); break;       //下
+        }
+    });
+
+
+    // 鼠标移入
+    $('.hit').mouseover(function() {
+        $(this).css('background-color', 'green');
+    });
+    //鼠标移出
+    $('.hit').mouseout(function() {
+        $(this).css({'background-color': ''});
+    });
+
+
+    // on()方法绑定事件
+    $('.events').on('click', function() {
+        console.log('已完成点击');
+    });
+    // off()方法取消绑定
+    $('.events').off('click');
+    // 绑定单次事件
+    $('.events').one('click', function() {          // 执行一次后失效
+        console.log('已完成一次点击');
+    });
+    // 多个事件绑定同个函数
+    $('.events').on('mouseover mouseout', function() {
+        console.log('鼠标移入或移出');
+    });
+    // 多个事件绑定不同的函数
+    $('.ev').on({
+        mouseover: function() {
+            console.log('鼠标移入');
+        },
+        mouseout: function() {
+            console.log('鼠标移出');
+        }
+    });
+    // 为以后创建的元素委派事件
+    $('body').on('click', 'div', function() {         
+        console.log('收到');
+    });
+    // 测试：创建<div>元素
+    $('body').append('<div>测试</div>');
+    // 鼠标移入移出的hover()方法
+    $('body').hover(function() {
+        console.log('鼠标移入');
+    }, function() {
+        console.log('鼠标移出');
+    });
+</script>

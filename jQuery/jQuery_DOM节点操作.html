@@ -1,0 +1,89 @@
+<head>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js">
+    </script>
+    <style>
+        .box>div>select{
+            float: left;
+            height: 110px;
+            width: 200px;
+            top: 0px;
+            position: relative;
+        }
+        #opt input{
+            width: 50px;
+            height: 20px;
+            display: inline-block;
+        }
+        #right div{
+            float: left;
+            height: 90px;
+            width: 200px;
+            top: 0px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="list">
+        <ul>
+            <li>ONE</li>
+            <li>TWO</li>
+            <li>THREE</li>
+        </ul>
+    </div>
+    <div class="add">+添加</div>
+
+
+    <ul id="del">
+        <li>In Jannuary</li>
+        <li>On February</li>
+        <li>march</li>
+    </ul>
+
+    <div class="box">
+        <div id="left">
+            <p>可选项</p>
+            <select multiple="multiple">
+                <option>添加</option>
+                <option>移动</option>
+                <option>删除</option>
+                <option>修改</option>
+                <option>查询</option>
+                <option>打印</option>
+            </select>
+        </div>
+        <div id="opt">
+            <input type="button" id="toRight" value=">"><br>
+            <input type="button" id="toLeft" value="<"><br>
+            <input type="button" id="toAllRight" value=">>"><br>
+            <input type="button" id="toAllLeft" value="<<"><br>
+        </div>
+        <div id="right">
+            <p>已选项</p>
+            <select multiple="multiple"></select>
+        </div>
+    </div>
+</body>
+<script>
+    $('.add').click(function() {
+        var str = '<li>FOUR</li>';
+        $('.list li:last-child').after(str);     // 追加节点
+    })
+
+    $('#del li:first-child').empty();            //删除节点
+    $('#del li')[1].remove();
+
+    $('#toRight').click(function() {       // 右移
+        $('#right>select').append($('#left>select>option:selected'));
+    });
+    $('#toLeft').click(function() {        // 左移
+        $('#left>select').append($('#right>select>option:selected'));
+    });
+    $('#toAllRight').click(function() {       // 全部右移
+        $('#right>select').append($('#left>select>option'));
+    });
+    $('#toAllLeft').click(function() {         //全部左移
+        $('#left>select').append($('#right>select>option'));
+    });
+    
+</script>

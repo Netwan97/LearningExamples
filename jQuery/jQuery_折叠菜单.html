@@ -1,0 +1,37 @@
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js">
+</script>
+<div id = "fold">
+    <ul>
+        <li><a href="#">信息管理</a>
+            <ul class="wrap">
+                <li><a href="#">未读信息</a></li>
+                <li><a href="#">已读信息</a></li>
+                <li><a href="#">信息列表</a></li>
+            </ul>
+        </li>
+        <li><a href="#">商品管理</a>
+            <ul class="wrap">
+                <li><a href="#">商品添加</a></li>
+                <li><a href="#">商品列表</a></li>
+                <li><a href="#">商品分类</a></li>
+            </ul>
+        </li>
+        <li><a href="#">用户管理</a>
+            <ul class="wrap">
+                <li><a href="#">权限设置</a></li>
+                <li><a href="#">用户列表</a></li>
+                <li><a href="#">重置密码</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script>
+    // 默认情况下，显示第一个分类下的菜单
+    $('#fold>ul>li:first').find('.wrap').css({display: "block"});
+    // 根据用户点击，折叠或展开对应的菜单
+    $('#fold>ul>li').click(function() {
+        $(this).siblings('li').find('.wrap').css({display: "none"});
+        $(this).find('.wrap').css({display: "block"});
+        console.log($(this).html());
+    })
+</script>
