@@ -1,0 +1,25 @@
+less 示例
+
+<template>
+	<div class="box">hi...</div>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				title: 'Hello...'
+			}
+		},
+		onLoad() {
+
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style lang="less">
+	@import "../../less.less";
+</style>
