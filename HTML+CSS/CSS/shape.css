@@ -1,0 +1,43 @@
+div#shape {
+   /* width: 300px;
+    height: 300px;*/    
+    border-color: brown;
+    color: blue; 
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+}   
+
+p.one {
+    width: 200px;
+    height: 200px;
+    top: 100px;
+    left: 100px;
+    margin: 20px;
+    position: absolute;
+    border: 20px solid #ee3e80;
+    border-top-left-radius: 50px 20px;
+}
+
+p.two {
+    width: 200px;
+    height: 200px;
+    top: 100px;
+    left: 500px;
+    position: absolute;
+    border: 20px solid #ee3e80;
+    margin: 20px;
+    border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;            /* 先指定四个圆角的四个横向值，再指定她们的四个                                                                   纵向值 */
+}
+
+p.three {
+    width: 200px;
+    height: 200px;
+    top: 100px;
+    left: 900px;
+    position: absolute;
+    margin: 20px;
+    border: 20px solid #ee3e80;
+    border-radius: 200px;
+}
